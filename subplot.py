@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+import numpy as np
 
-fig = plt.figure()
+# fig = plt.figure()
 
 '''
 method 1
@@ -80,6 +81,7 @@ ax11.scatter([1, 1], [1, 2])
 '''
 
 '''图中图'''
+'''
 x = [1, 2, 3, 4, 5, 6, 7]
 y = [1, 3, 4, 2, 5, 8, 6]
 
@@ -104,6 +106,22 @@ plt.plot(y[::-1], x, 'g')
 plt.xlabel('x')
 plt.ylabel('y')
 plt.title('title inside 2')
+'''
+
+'''主次坐标轴'''
+x = np.arange(0, 10, 0.1)
+y1 = 0.05 * x ** 2
+y2 = -1 * y1
+
+fig, ax1 = plt.subplots()
+# 颠倒，镜面, 坐标轴反向
+ax2 = ax1.twinx()
+ax1.plot(x, y1, 'g-')
+ax2.plot(x, y2, 'b--')
+
+ax1.set_xlabel('X data')
+ax1.set_ylabel('Y1', color='g')
+ax2.set_ylabel('Y2', color='b')
 
 
 # plt.tight_layout()
