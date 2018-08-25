@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
-plt.figure()
+fig = plt.figure()
 
 '''
 method 1
@@ -73,9 +73,38 @@ ax5 = plt.subplot(gs[-1, -2])
 '''
 method 4
 '''
+'''
 # sharex:恭喜X轴
 f, ((ax11, ax12), (ax21, ax22)) = plt.subplots(2, 2, sharex=True, sharey=True)
 ax11.scatter([1, 1], [1, 2])
+'''
 
-plt.tight_layout()
+'''图中图'''
+x = [1, 2, 3, 4, 5, 6, 7]
+y = [1, 3, 4, 2, 5, 8, 6]
+
+# 左下边距
+left, bottom, width, height = 0.1, 0.1, 0.8, 0.8
+ax1 = fig.add_axes([left, bottom, width, height])
+ax1.plot(x, y, 'r')
+ax1.set_xlabel('X')
+ax1.set_ylabel('Y')
+ax1.set_title('title')
+
+left, bottom, width, height = 0.2, 0.6, 0.25, 0.25
+ax2 = fig.add_axes([left, bottom, width, height])
+ax2.plot(y, x, 'b')
+ax2.set_xlabel('X')
+ax2.set_ylabel('Y')
+ax2.set_title('title inside 1')
+
+plt.axes([.6, .2, 0.25, 0.25])
+# y[::-1]表示将y的值逆序一下
+plt.plot(y[::-1], x, 'g')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('title inside 2')
+
+
+# plt.tight_layout()
 plt.show()
