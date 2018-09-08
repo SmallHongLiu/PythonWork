@@ -34,8 +34,9 @@ print(df2.sort_index(axis=1, ascending=False))
 print(df2.sort_values(by='E'))
 '''
 
-dates = pd.date_range('20130101', periods=6)
-df = pd.DataFrame(np.arange(24).reshape((6, 4)), index=dates, columns=['A', 'B', "C", 'D'])
+# dates = pd.date_range('20130101', periods=6)
+# df = pd.DataFrame(np.arange(24).reshape((6, 4)), index=dates, columns=['A', 'B', "C", 'D'])
+
 '''
 # 选择某一列的数据, 下面两行代码效果类似
 print(df['A'])
@@ -93,6 +94,7 @@ df['E'] = pd.Series([1, 2, 3, 4, 5, 6], index=pd.date_range('20130101', periods=
 print(df)
 '''
 
+'''
 df.iloc[0, 1] = np.nan
 df.iloc[1, 2] = np.nan
 print(df)
@@ -107,4 +109,13 @@ print(df.fillna(value=0))
 # 判断是否有缺失（丢失) 数据
 print(df.isnull)
 # 判断其中是否有数据丢失，如果有，则会为True，np.any(df.isnull())表示任何一个为丢失
+# 该方法可以用于当数据表格很大时，查找是否有数据丢失
 print(np.any(df.isnull()) == True)
+'''
+
+# csv 还可以读取txt的，注意：panads读取时会自动添加索引
+data = pd.read_csv('/users/small_hong/ExcelProjects/python/student.csv')
+print(data)
+# 导出数据
+data.to_pickle('/users/small_hong/ExcelProjects/python/student.pickle')
+
