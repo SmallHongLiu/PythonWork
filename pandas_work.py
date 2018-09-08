@@ -150,6 +150,7 @@ res = pd.concat([df1, df2], axis=1, join_axes=[df1.index])
 print(res)
 '''
 
+'''
 df1 = pd.DataFrame(np.ones((3, 4)) * 0, columns=['a', 'b', 'c', 'd'])
 df2 = pd.DataFrame(np.ones((3, 4)) * 1, columns=['a', 'b', 'c', 'd'])
 df3 = pd.DataFrame(np.ones((3, 4)) * 1, columns=['b', 'c', 'd', 'e'], index=[2, 3, 4])
@@ -159,4 +160,64 @@ df3 = pd.DataFrame(np.ones((3, 4)) * 1, columns=['b', 'c', 'd', 'e'], index=[2, 
 # res = df1.append([df2, df3])
 s1 = pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd'])
 res = df1.append(s1, ignore_index=True)
+print(res)
+'''
+
+'''
+# merging two df by key/keys (may be used in database)
+left = pd.DataFrame({'key': ['K0', 'K1', 'K2', 'K3'],
+                     'A': ['A0', 'A1', 'A2', 'A3'],
+                     'B': ['B0', 'B1', 'B2', 'B3']})
+right = pd.DataFrame({'key': ['K0', 'K1', 'K2', 'K3'],
+                     'C': ['C0', 'C1', 'C2', 'C3'],
+                     'D': ['D0', 'D1', 'D2', 'D3']})
+
+print(left)
+print(right)
+# 参数on表示基于哪个col进行合并
+res = pd.merge(left, right, on='key')
+print(res)
+'''
+
+'''
+# consider two keys
+'''
+left = pd.DataFrame({'key1': ['K0', 'K1', 'K2', 'K3'],
+                     'key2': ['K0', 'K1', 'K0', "K1"],
+                     'A': ['A0', 'A1', 'A2', 'A3'],
+                     'B': ['B0', 'B1', 'B2', 'B3']})
+right = pd.DataFrame({'key1': ['K0', 'K1', 'K2', 'K3'],
+                     'key2': ['K0', 'K0', 'K0', "K0"],
+                     'C': ['C0', 'C1', 'C2', 'C3'],
+                     'D': ['D0', 'D1', 'D2', 'D3']})
+'''
+print(left)
+print(right)
+# on的值为多个时，必须同时满足
+# res = pd.merge(left, right, on=['key1', 'key2'])
+# how = ['left', 'right', 'outer', 'inner']，默认为inner, 其中inner表示将相同的进行合并
+res = pd.merge(left, right, on=['key1', 'key2'], how='outer')
+print(res)
+'''
+
+'''
+# indicator
+df1 = pd.DataFrame({'col1': [0, 1], 'col_left':['a', 'b']})
+df2 = pd.DataFrame({'col1':[1, 2, 2], 'col_right': [2, 2, 2]})
+# print(df1)
+# print(df2)
+# res = pd.merge(df1, df2, on='col1', how='outer', indicator='indicator_name')
+# give the indicator a custom name
+# res = pd.merge(df1, df2, on='col1', how='outer', indicator=False)
+
+# left_index and right_index
+res = pd.merge(left, right, left_index=True, right_index=True, how='outer')
+# res = pd.merge(left, right, left_index=True, right_index=True, how='inner')
+print(res)
+'''
+
+boys = pd.DataFrame({'k': ['K0', 'K1', 'K2'], 'age': [1, 2, 3]})
+girls = pd.DataFrame({'k': ['K0', 'K0', 'K3'], 'age': [4, 5, 6]})
+#
+res = pd.merge(boys, girls, on='k', suffixes=['_boy', '_girl'], how='inner')
 print(res)
