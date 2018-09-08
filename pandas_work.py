@@ -76,3 +76,17 @@ print(df.ix[:3, ['A', 'C']])
 print(df[df.A > 8])
 print(df[df.A < 8])
 '''
+
+# iloc相当于根据位置进行选择
+df.iloc[2, 2] = 11
+# loc通过标签获取值
+df.loc['20130101', 'B'] = 22
+# 将某一列中的数据中大于某个数的值修改为某个值
+# df[df.A > 4] = 0
+# 将B标签中对应的A标签的值大于4的值修改为99
+df.B[df.A > 4] = 99
+# 新增一列值全部为NaN
+df['F'] = np.nan
+# 新增一列，其为序列
+df['E'] = pd.Series([1, 2, 3, 4, 5, 6], index=pd.date_range('20130101', periods=6))
+print(df)
