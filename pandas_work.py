@@ -46,7 +46,7 @@ print(df[0:3])
 print(df['2013-01-02': '2013-01-03'])
 '''
 
-print(df)
+# print(df)
 
 '''
 # select by label: loc
@@ -77,6 +77,7 @@ print(df[df.A > 8])
 print(df[df.A < 8])
 '''
 
+'''
 # iloc相当于根据位置进行选择
 df.iloc[2, 2] = 11
 # loc通过标签获取值
@@ -90,3 +91,20 @@ df['F'] = np.nan
 # 新增一列，其为序列
 df['E'] = pd.Series([1, 2, 3, 4, 5, 6], index=pd.date_range('20130101', periods=6))
 print(df)
+'''
+
+df.iloc[0, 1] = np.nan
+df.iloc[1, 2] = np.nan
+print(df)
+
+# dropna按照行中有nan即丢掉, how表示什么情况, 其值any表示任一个满足，all表示全部满足
+print(df.dropna(axis=0, how='any'))
+# 丢掉列
+print(df.dropna(axis=1, how='any'))
+
+# 填充数据, value表示想要填充的值
+print(df.fillna(value=0))
+# 判断是否有缺失（丢失) 数据
+print(df.isnull)
+# 判断其中是否有数据丢失，如果有，则会为True，np.any(df.isnull())表示任何一个为丢失
+print(np.any(df.isnull()) == True)
