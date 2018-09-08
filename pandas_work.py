@@ -216,8 +216,34 @@ res = pd.merge(left, right, left_index=True, right_index=True, how='outer')
 print(res)
 '''
 
+'''
 boys = pd.DataFrame({'k': ['K0', 'K1', 'K2'], 'age': [1, 2, 3]})
 girls = pd.DataFrame({'k': ['K0', 'K0', 'K3'], 'age': [4, 5, 6]})
 #
 res = pd.merge(boys, girls, on='k', suffixes=['_boy', '_girl'], how='inner')
 print(res)
+'''
+
+import matplotlib.pyplot as plt
+# plot data
+
+# Series
+data = pd.Series(np.random.randn(1000), index=np.arange(1000))
+data = data.cumsum()
+# 类似于plt.plot()
+
+# DataFrame
+data = pd.DataFrame(np.random.randn(1000, 4),
+                    index=np.arange(1000),
+                    columns=list("ABCD"))
+# head(): 获取前几个数据，默认为前5个数据
+# print(data.head())
+data = data.cumsum()
+# data.plot()
+# plot methods: 'bar(条形图)', 'hist()', 'box', 'kde', 'area', 'scatter', 'hexbin', 'pie'
+ax = data.plot.scatter(x='A', y='B', color='DarkBlue', label='Class 1')
+data.plot.scatter(x='A', y='C', color='DarkGreen', label='Class 2', ax = ax)
+
+plt.show()
+
+
