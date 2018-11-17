@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<School>
+    <Teacher>
+        <Name>SmallHong</Name>
+        <Age>18</Age>
+        <Mobile>18408251364</Mobile>
+    </Teacher>
+    <Student>
+        <Name Other="他是班长">Bigrey</Name>
+        <Age Detail="The yongest boy in class">12</Age>
+    </Student>
+    <Student>
+        <Name>BigWhite</Name>
+        <Age>19</Age>
+        <Mobile>18010642429</Mobile>
+    </Student>
+</School>
