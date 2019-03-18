@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Scholl type="online" local="Beijing">
+    <Student gender="male">
+        <name>SmallHong</name>
+        <age>18</age>
+    </Student>
+    <Student>
+        <name>BigHui</name>
+        <age>18</age>
+    </Student>
+    <Student>
+        <name>Bigrey</name>
+        <age>18</age>
+    </Student>
+</Scholl>
+
