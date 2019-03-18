@@ -1066,3 +1066,110 @@ actions.perform()
 print(driver.find_element_by_tag_name('body').text)
 
 driver.close()
+
+'''
+鼠标拖拽
+'''
+from selenium import webdriver
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver import ActionChains
+
+driver = webdriver.PhantomJS(executable_path='')
+driver.get('http://pythonscraping.com/pages/javascript/draggableDemo.html')
+
+print(driver.find_element_by_id('message').text)
+
+element = driver.find_element_by_id('draggable')
+target = driver.find_element_by_id('div2')
+actions = ActionChains(driver)
+actions.drag_and_drop(element, target).perform()
+
+print(driver.find_element_by_id('message').text)
+
+
+'''
+截屏
+'''
+driver = webdriver.PhantomJS()
+driver.get('http://www.pythonscraping.com/')
+driver.get_screenshot_as_file('python_scraping.png')
+
+
+'''
+带拖放动作的网站单元测试
+'''
+from selenium import webdriver
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver import ActionChains
+import unittest
+
+class TestAddition(unittest.TestCase):
+    driver = None
+    def setUp(self):
+        global driver
+        driver = webdriver.PhantomJS(executable_path='')
+        url = 'http://pythonscraping.com/pages/javascript/draggableDemo.html'
+        driver.get(url)
+
+    def tearDown(self):
+        print('Tearing down the test')
+
+    def test_drag(self):
+        global driver
+        element = driver.find_element_by_id('draggable')
+        target = driver.find_element_by_id('div2')
+        actions = ActionChains(driver)
+        actions.drag_and_drop(element, target).perform()
+
+        self.assertEqual('You are definitely not a bot!', driver.find_element_by_id('message').text)
+
+if __name__ == '__main__':
+    unittest.main()
+
+'''
+PySocks和Tor配合使用
+'''
+import socks
+import socket
+from urllib.request import urlopen
+
+socks.set_default_proxy(socks.SOCKSS, 'localhost', 9150)
+socket.socket = socks.socksocket
+print(urlopen('http://icanhazip.com').read())
+
+'''
+Selenium，PhantomJS，和Tor配合使用案例，这里则不再需要PySocks
+'''
+from selenium import webdriver
+
+service_args = ['--proxy=localhost:9150', '--proxy-type=socks5', ]
+driver = webdriver.PhantomJS(executable_path='', service_args=service_args)
+
+driver.get('http://icanhazip.com')
+print(driver.page_source)
+driver.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+driver.close()
