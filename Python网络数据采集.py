@@ -916,7 +916,7 @@ driver2.get("http://pythonscraping.com")
 driver2.delete_all_cookies()
 
 for cookie in saveCookies:
-driver2.add_cookie(cookie)
+    driver2.add_cookie(cookie)
 
 driver2.get("http://pythonscraping.com")
 driver.implicitly_wait(1)
@@ -934,14 +934,14 @@ driver.get("http://pythonscraping.com/pages/itsatrap.html")
 links = driver.find_element_by_tag_name('a')
 
 for link in links:
-if not link.is_displayed():
-print('The link ' + link.get_attribute('href') + ' is a trap')
+    if not link.is_displayed():
+        print('The link ' + link.get_attribute('href') + ' is a trap')
 
 fields = driver.find_element_by_tag_name('input')
 
 for field in fields:
-if not field.is_displayed():
-print('Do not change value of ' + field.get_attribute('name'))
+    if not field.is_displayed():
+        print('Do not change value of ' + field.get_attribute('name'))
 
 
 '''
@@ -951,14 +951,14 @@ import unittest
 
 class TestAddition(unittest.TestCase):
     def setUp(self):
-    print('Setting up the test')
+        print('Setting up the test')
 
     def tearDown(self):
-    print('Tearing down the test')
+        print('Tearing down the test')
 
     def test_twoPlusTwo(self):
-    total = 2 + 2
-    self.assertEqual(4, total)
+        total = 2 + 2
+        self.assertEqual(4, total)
 
 if __name__ == '__main__':
     unittest.main()
@@ -1005,7 +1005,7 @@ class TestWikipedia(unittest.TestCase):
         url = 'http://en.wikipedia.org/wiki/Monty_Python'
         # 测试遇到的前100个页面
         for i in range(1, 100):
-        bsObj = BeautifulSoup(urlopen(url))
+            bsObj = BeautifulSoup(urlopen(url))
         titles = self.titleMatchesURL()
         self.assertEquals(titles[0], titles[1])
         self.assertTrue(self.contentExists())
@@ -1030,6 +1030,7 @@ class TestWikipedia(unittest.TestCase):
 
     def getNextLink(self):
         # 返回随机链接
+        return
 
 if __name__ == '__main__':
     unittest()
@@ -1147,29 +1148,4 @@ driver = webdriver.PhantomJS(executable_path='', service_args=service_args)
 
 driver.get('http://icanhazip.com')
 print(driver.page_source)
-driver.close()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 driver.close()
