@@ -18,12 +18,14 @@ cluster.fit_predict(df[['Murder', 'Assault', 'UrbanPop', 'Rape']])
 plt.figure(figsize=(14, 10), dpi=80)
 plt.scatter(df.iloc[:, 0], df.iloc[:, 1], c=cluster.labels_, cmap='tab10')
 
+
 def encircle(x, y, ax=None, **kw):
     if not ax: ax=plt.gca()
     p = np.c_[x, y]
     hull = ConvexHull(p)
     poly = plt.Polygon(p[hull.vertices, :], **kw)
     ax.add_patch(poly)
+
 
 encircle(df.loc[cluster.labels_ == 0, 'Murder'], df.loc[cluster.labels_ == 0, 'Assault'], ec="k", fc="gold", alpha=0.2, linewidth=0)
 encircle(df.loc[cluster.labels_ == 1, 'Murder'], df.loc[cluster.labels_ == 1, 'Assault'], ec="k", fc="tab:blue", alpha=0.2, linewidth=0)
