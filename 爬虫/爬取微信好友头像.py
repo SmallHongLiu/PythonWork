@@ -4,7 +4,7 @@ import math
 import os
 
 itchat.auto_login(True)  # 登录微信
-friends = itchat.get_friends(update=True)[0:]
+friends = itchat.get_friends(update=True)[0:] # 获取朋友列表
 
 def save_avatar(avatar_file_path):
     num = 0
@@ -30,13 +30,13 @@ def make_path():
 def merge_avatar(path):
     length = len(os.listdir(path))
     each_size = int(math.sqrt(float(810 * 810) / length))
-    lines = int(810 / each_size)
+    lines = int(810 / each_size) # 计算一行放置多少个头像
     image = Image.new("RGBA", (810, 810), 'white')
     x = 0
     y = 0
     for i in range(0, length):
         try:
-            img = Image.open(path + '\\' + str(i) + '.png')
+            img = Image.open(path + '／' + str(i) + '.png')
         except IOError:
             print("Error")
         else:
@@ -48,7 +48,6 @@ def merge_avatar(path):
                 y += 1
     image.save(path + '/' + 'all.png')
     image.show()
-
 
 if __name__ == "__main__":
     itchat.auto_login(True)
