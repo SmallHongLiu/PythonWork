@@ -53,9 +53,9 @@ def main():
     print(min_temps)
     chart = (
         Bar()
-        .add_xaxis(cities)
-        .add_yaxis('', min_temps)
-        .set_global_opts(title_opts=opts.TitleOpts(title='中国天气最低气温Top10排行榜'))
+            .add_xaxis(cities)
+            .add_yaxis('', min_temps)
+            .set_global_opts(title_opts=opts.TitleOpts(title='中国天气最低气温Top10排行榜'))
     )
 
     chart.render('Top10 max_temp.html')  # 渲染
@@ -63,22 +63,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
