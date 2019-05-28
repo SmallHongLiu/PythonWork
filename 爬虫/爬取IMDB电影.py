@@ -46,6 +46,7 @@ def getNextUrl(detail, detail1):
     scores = pd.DataFrame({'value': value, 'num': num})
     return country, movie_type, scores
 
+
 if __name__ == '__main__':
     url = "https://www.imdb.com/chart/top"
     url2 = "https://www.imdb.com"
