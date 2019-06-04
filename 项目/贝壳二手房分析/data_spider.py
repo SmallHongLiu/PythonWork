@@ -5,6 +5,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pymongo
+import pandas as pd
 
 
 # 获取网页源码，生成soup对象
@@ -48,11 +49,30 @@ def get_detail_info(soup):
     transaction_li_text_list = [content.get_text() for content in transaction.find_all('li')]
     if '房屋用途' in transaction_span_list:
         house_type_index = transaction_span_list.index('房屋用途')
-        house_type = transaction_li_text_list[house_type_index][4:]
+        house_type = transaction_li_text_list[house_type_index][4:].replace('\n', '')
     if '房屋年限' in transaction_span_list:
         house_year_index = transaction_span_list.index('房屋年限')
-        house_year = transaction_li_text_list[house_year_index][4:]
+        house_year = transaction_li_text_list[house_year_index][4:].replace('\n', '')
     return area_name[0].text, area_name[1].text, real_area, house_orientation, decoration, property, house_type, house_year
+
+
+house_list = []
+title_arr = []
+flood_arr = []
+total_price_arr = []
+unit_price_arr = []
+label_area_arr = []
+real_area_arr = []
+house_orientation_arr = []
+area_arr = []
+area_detail_arr = []
+decoration_arr = []
+property_arr = []
+house_type_arr = []
+house_year_arr = []
+house_info_arr = []
+follow_info_arr = []
+tags_arr = []
 
 
 # 解析数据
@@ -72,34 +92,66 @@ def getData(soup):
         detail_soup = getSoup(detail_url)
         area, area_detail, real_area, house_orientation, decoration, property, house_type, house_year = get_detail_info(detail_soup)
 
+        """
         # 添加到数据库
         house = {'title': title.text, 'flood': flood, 'total_price(万)': total_price, 'unit_price(元)': unit_price,
                  'label_area(㎡)': label_area, 'real_area': real_area, 'house_orientation': house_orientation,
                  'area': area, 'area_detail': area_detail, 'decoration': decoration, 'property(年)': property,
                  'house_type': house_type, 'house_year': house_year, 'house_info': house_info,
                  'follow_info': follow_info, 'tags': tags}
-        house_list.insert(house)
+        house_list.append(house)
+        """
+
+        title_arr.append(title.text)
+        flood_arr.append(flood)
+        total_price_arr.append(total_price)
+        unit_price_arr.append(unit_price)
+        label_area_arr.append(label_area)
+        real_area_arr.append(real_area)
+        house_orientation_arr.append(house_orientation)
+        area_arr.append(area)
+        area_detail_arr.append(area_detail)
+        decoration_arr.append(decoration)
+        property_arr.append(property)
+        house_type_arr.append(house_type)
+        house_year_arr.append(house_year)
+        house_info_arr.append(house_info)
+        follow_info_arr.append(follow_info)
+        tags_arr.append(tags)
+
+
+def save_data():
+    final_result = pd.DataFrame({'简介': title_arr, '小区': flood_arr, '总价(万)': total_price_arr,
+                                 '单价(元)': unit_price_arr, '建筑面积(㎡)': label_area_arr,
+                                 '室内面积': real_area_arr, '朝向': house_orientation_arr,
+                                 '区域': area_arr, '地点': area_detail_arr, '装修': decoration_arr,
+                                 '产权(年)': property_arr, '房屋类型': house_type_arr, '房屋情况': house_year_arr,
+                                 '房屋信息': house_info_arr, '关注': follow_info_arr, '标签': tags_arr})
+
+    final_result.to_excel('house_list.xlsx')
 
 
 BASE_URL = 'https://cd.ke.com/ershoufang/pg'
 # url列表
 URL_LIST = []
 
-for i in range(1, 10):
+for i in range(1, 20):
     url = BASE_URL + str(i) + '/'
     URL_LIST.append(url)
 
+"""
 # 连接数据库
 client = pymongo.MongoClient('localhost', 27017)
 # 获取数据库
 house_db = client.house_data
 # 获取房屋集合
 house_list = house_db.house_info
+"""
 
 
 def main():
     # 删除所有数据
-    house_list.remove({})
+    # house_list.remove({})
 
     count = 1
     for url in URL_LIST:
@@ -107,6 +159,8 @@ def main():
         getData(soup)
         print('第{}页数据爬取完成'.format(count))
         count = count + 1
+
+    save_data()
 
     """
     detail_url = 'https://cd.ke.com/ershoufang/19050817710100247126.html?fb_expo_id=183326137201094662'

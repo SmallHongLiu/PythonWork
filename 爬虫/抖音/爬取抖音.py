@@ -3,6 +3,7 @@ from pyecharts import Bar
 from pyecharts import TreeMap
 from pyecharts import Scatter
 
+
 # 性别饼状图分析
 def create_gender(df):
     df = df.copy()
@@ -87,6 +88,7 @@ def create_type_fans(df):
     treemap = TreeMap("各类型抖音大V粉丝数汇总图", title_pos='center', title_top='5', width=800, height=400)
     treemap.add('各类型抖音大V粉丝数汇总图', dom, is_label_show=True, label_pos='inside', is_legend_show=False)
     treemap.render('各类型抖音大V粉丝数汇总图.html')
+
 
 # 视频粉丝点赞数三维度
 def create_scatter(df):
