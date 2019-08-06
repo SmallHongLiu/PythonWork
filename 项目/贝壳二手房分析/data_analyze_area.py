@@ -5,6 +5,8 @@ date: 2019-06-03 17:31
 '''
 import pandas as pd
 from pyecharts import Pie, Bar, Line, Scatter, EffectScatter, Geo
+from pyecharts import Page
+from pyecharts import Style
 
 
 # 读取数据
@@ -99,6 +101,7 @@ def effect_scatter():
 
 # 地理坐标系
 def geo():
+    """
     house_list = read_data()
 
     area_group = house_list.groupby(['区域'])
@@ -124,12 +127,26 @@ def geo():
     v1 = area_com['count']
     print(attr)
     print(v1)
-    chart = Geo('房屋区域分布情况', title_pos='center')
-    chart.add('', attr, v1, visual_range=[0, 200],
-              visual_text_color='#fff', is_legend_show=False,
-              tooltip_formatter='{b}', symbol_size=15, is_visualmap=True,
-              label_emphasis_textsize=15, label_emphasis_pos='right')
-    chart.render('房屋区域分布情况-地理坐标系.html')
+    """
+
+    style = Style(
+        title_color='#fff',
+        title_pos='center',
+        width=1200,
+        height=600,
+        background_color='#404a59')
+
+    data = [('澄海区', 30), ('南澳县', 40), ('龙湖区', 50), ('金平区', 60)]
+    chart = Geo('房屋区域分布情况', **style.init_style)
+    attr, value = chart.cast(data)
+    chart.add("", attr, value, maptype="汕头", is_visualmap=True,
+              is_legend_show=False,
+              tooltip_formatter='{b}',
+              label_emphasis_textsize=15,
+              label_emphasis_pos='right')
+    page = Page()
+    page.add(chart)
+    page.render()
 
 
 if __name__ == '__main__':

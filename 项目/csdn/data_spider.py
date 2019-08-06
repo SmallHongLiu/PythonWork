@@ -6,6 +6,7 @@ date: 2019-05-27 17:52
 
 import requests
 from bs4 import BeautifulSoup
+import pandas as pd
 
 
 def get_soup(url):
@@ -18,10 +19,22 @@ def get_soup(url):
 
 
 article_list = []
+title_arr = []
+tag_arr = []
+detail_content_arr = []
+author_arr = []
+date_arr = []
+student_arr = []
+link_arr = []
+count_arr = []
 
 
 def get_data(soup):
+    print(soup)
     content = soup.find('div', attrs={'class': 'search-list-con'})
+    print(content)
+
+    """
     data_list = content.find_all('dl', attrs={'class': 'search-list J_search'})
     for item in data_list:
         title = item.find('div', attrs={'class': 'limit_width'}).text.replace('\n', '')
@@ -59,18 +72,36 @@ def get_data(soup):
                 'link': link,
                 'count': count
             }
-            article_list.append(article)
+
+            title_arr.append(title_arr)
+            tag_arr.append(tag.text)
+            detail_content_arr.append(detail_content)
+            author_arr.append(author)
+            date_arr.append(date)
+            student_arr.append(student)
+            link_arr.append(link)
+            count_arr.append(count)
+
+            # article_list.append(article)
         else:
             continue
+            """
+
+
+def save_data():
+    final_result = pd.DataFrame({'标题': title_arr, '标志': tag_arr,
+                                 '详情': detail_content_arr, '作者': author_arr,
+                                 '日期': date_arr, '学生': student_arr,
+                                 '链接': link_arr, '数量': count_arr})
+    final_result.to_excel('article_list.xlsx')
 
 
 def main():
-    soup = get_soup('https://so.csdn.net/so/search/s.do?p=2&q=数据分析&t=&domain=&o=&s=&u=&l=&f=')
+    soup = get_soup('https://so.csdn.net/so/search/s.do?p=1&q=数据分析&t=&domain=&o=&s=&u=&l=&f=')
     get_data(soup)
+    save_data()
 
 
 if __name__ == '__main__':
+
     main()
-    print(len(article_list))
-
-
