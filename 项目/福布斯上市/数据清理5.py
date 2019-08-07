@@ -117,7 +117,7 @@ df_concat['Country_en'] = df_concat['Country_en'].replace(['China-China-Taiwan',
 
 df_concat['Country_en'] = df_concat['Country_en'].replace(['MA$','SA$'],['', ''], regex=True)
 
-df_concat.loc[df_concat['Country_en']=='', 'Country_en'] = df_concat.loc[df_concat['Country_en']=='', 'Country_cn']
+df_concat.loc[df_concat['Country_en'] == '', 'Country_en'] = df_concat.loc[df_concat['Country_en'] == '', 'Country_cn']
 
 df_concat['Country_en'] = df_concat['Country_en'].replace(['澳大利亚','马来西亚', '摩洛哥', '南非'],
                                                           ['Australia', 'Malaysia', 'Morocco', 'South Africa'])
