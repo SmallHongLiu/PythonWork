@@ -119,7 +119,9 @@ links = [
     {'source': '水库地震', 'target': '诱发地震', 'value': 50},
     {'source': '油田注水', 'target': '诱发地震', 'value': 50},
 ]
-def sankey() -> Sankey:
+
+
+def sankey() -> Sankey:  # 桑基图
     sankey = (
         Sankey()
         .add(
@@ -142,8 +144,6 @@ num = [15661, 9646+2522, 7827, 5249, 4379, 4167, 3489, 2982, 2958, 2700]
 # 问题4：近20年有哪些引发全世界舆情关注的大地震
 
 
-
-
 if __name__ == '__main__':
     """
     bar(earth_quake_by_years.index.tolist(), earth_quake_by_years.values.tolist(),
@@ -160,7 +160,8 @@ if __name__ == '__main__':
 
     # sankey().render('近一年全球所有地震的地震类型.html')
 
-    bar(r, num, '近20年全球4.5级以上地震次数最多的国家/地区', '', 2).render('近20年全球4.5级以上地震次数最多的国家.html')
+    bar(r, num, '近20年全球4.5级以上地震次数最多的国家/地区', '',
+        2).render('近20年全球4.5级以上地震次数最多的国家.html')
 
 
 
